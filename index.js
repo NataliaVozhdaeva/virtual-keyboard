@@ -1,31 +1,21 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const screen = document.createElement('div');
+screen.className = 'screen';
 
-/**
- * Implement class DepthCalculator with method calculateDepth
- * that calculates deoth of nested array
- *
- * @example
- *
- * const depthCalc = new DepthCalculator();
- * depthCalc.calculateDepth([1, 2, 3, 4, 5]) => 1
- * depthCalc.calculateDepth([1, 2, 3, [4, 5]]) => 2
- * depthCalc.calculateDepth([[[]]]) => 3
- *
- */
-class DepthCalculator {
-  calculateDepth(arr) {
-    const total = 1;
-    let max = 0;
+const keyboard = document.createElement('div');
+keyboard.className = 'keyboard';
+const body = document.querySelector('body');
 
-    arr.forEach((el) => {
-      if (Array.isArray(el)) {
-        max = Math.max(this.calculateDepth(el), max);
-      }
-    });
-    return total + max;
-  }
-}
+body.appendChild(screen);
+body.appendChild(keyboard);
 
-module.exports = {
-  DepthCalculator,
-};
+const mainContainer = document.createElement('div');
+mainContainer.className = 'mainContainer';
+keyboard.appendChild(mainContainer);
+
+let key = document.createElement('div');
+key.className='key';
+let keyTop = document.createElement('div');
+keyTop.className='key-top';
+keyTop.textContent='a';
+key.appendChild(keyTop);
+mainContainer.appendChild(key)
