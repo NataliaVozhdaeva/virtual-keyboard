@@ -1,7 +1,6 @@
 const vocabulary = {
   en: [
     { name: 'Esc', isFunc: true },
-    { name: '~', isFunc: false },
     { name: '1', isFunc: false },
     { name: '2', isFunc: false },
     { name: '3', isFunc: false },
@@ -15,6 +14,7 @@ const vocabulary = {
     { name: '+', isFunc: false },
     { name: '-', isFunc: false },
     { name: '=', isFunc: false },
+    { name: 'Del', isFunc: true },
     { name: 'Tab', isFunc: true },
     { name: 'q', isFunc: false },
     { name: 'w', isFunc: false },
@@ -40,7 +40,7 @@ const vocabulary = {
     { name: 'k', isFunc: false },
     { name: 'l', isFunc: false },
     { name: ';', isFunc: false },
-    { name: "'", isFunc: false },
+    { name: '"', isFunc: false },
     { name: 'Enter', isFunc: true },
     { name: 'Shift', isFunc: true },
     { name: 'z', isFunc: false },
@@ -52,16 +52,15 @@ const vocabulary = {
     { name: 'm', isFunc: false },
     { name: ',', isFunc: false },
     { name: '.', isFunc: false },
-    { name: '?', isFunc: false },
+    { name: '/', isFunc: false },
     { name: '⬆', isFunc: false },
-    { name: 'Shift', isFunc: true },
+    { name: '🪄', isFunc: true },
     { name: 'Ctrl', isFunc: true },
     { name: 'Alt', isFunc: true },
     { name: ' ', isFunc: false },
     { name: '⬅', isFunc: false },
     { name: '⬇', isFunc: false },
     { name: '➡', isFunc: false },
-    { name: '🪄', isFunc: true },
   ],
 };
 const screen = document.createElement('div');
@@ -81,45 +80,57 @@ keyboard.appendChild(mainContainer);
 const createKey = (element) => {
   const key = document.createElement('div');
   key.className = 'key';
+  key.setAttribute('data-key', element.name.toLowerCase());
   element.isFunc ? key.classList.add('key_func') : '';
   if (element.name === 'Esc') {
-    key.classList.add('esc');
+    key.setAttribute('data-key', 'escape');
+  }
+  if (element.name === 'Del') {
+    key.setAttribute('data-key', 'delete');
   }
   if (element.name === 'Tab') {
-    key.classList.add('tab');
     key.style.width = '60px';
   }
   if (element.name === 'Enter') {
-    key.classList.add('enter');
     key.style.width = '80px';
   }
   if (element.name === 'Caps lock') {
-    key.classList.add('caps');
     key.style.width = '80px';
+    key.setAttribute('data-key', 'capslock');
   }
   if (element.name === 'Shift') {
-    key.classList.add('shift');
-    key.style.width = '80px';
+    key.style.width = '105px';
   }
   if (element.name === ' ') {
     key.classList.add('space');
     key.style.flexGrow = '3';
   }
   if (element.name === 'Ctrl') {
-    key.classList.add('ctrl');
     key.style.flexGrow = '0';
     key.style.width = '50px';
+    key.setAttribute('data-key', 'control');
   }
   if (element.name === 'Alt') {
-    key.classList.add('alt');
     key.style.flexGrow = '0';
     key.style.width = '50px';
   }
   if (element.name === '🪄') {
-    key.classList.add('magic');
     key.style.flexGrow = '0';
-    key.style.width = '48px';
+    key.style.width = '40px';
   }
+  if (element.name === '⬆') {
+    key.setAttribute('data-key', 'arrowup');
+  }
+  if (element.name === '⬅') {
+    key.setAttribute('data-key', 'arrowleft');
+  }
+  if (element.name === '⬇') {
+    key.setAttribute('data-key', 'arrowdown');
+  }
+  if (element.name === '➡') {
+    key.setAttribute('data-key', 'arrowright');
+  }
+
   const keyTop = document.createElement('div');
   keyTop.className = 'key-top';
   keyTop.textContent = element.name;
@@ -128,3 +139,27 @@ const createKey = (element) => {
 };
 
 vocabulary.en.forEach((el) => createKey(el));
+
+const $key = (key) => document.querySelector(`div[data-key='${key}']`);
+const codeToElement = {
+  CapsLock: $key('caps'),
+};
+
+window.addEventListener('keydown', (e) => {
+  if (e.key !== 'F12') {
+    e.preventDefault();
+  }
+  const el = $key(e.key.toLowerCase());
+  console.log(el);
+  if (el) {
+    el.classList.add('pressed');
+  }
+});
+
+window.addEventListener('keyup', (e) => {
+  const el = $key(e.key.toLowerCase());
+  if (el) {
+    el.classList.remove('pressed');
+    e.preventDefault();
+  }
+});
