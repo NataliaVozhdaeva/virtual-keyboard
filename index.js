@@ -163,3 +163,13 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
   }
 });
+
+let keyBtns = document.querySelectorAll('.key');
+
+keyboard.addEventListener('mousedown', (e) => {
+  e.target.parentNode.classList.add('pressed');
+});
+
+keyboard.addEventListener('mouseup', (e) => {
+  e.target.parentNode.classList.remove('pressed');
+});
