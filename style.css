@@ -1,10 +1,15 @@
 .screen {
+  box-sizing: border-box;
   width: 980px;
   height: 300px;
   margin: auto;
   margin-bottom: 50px;
+  padding: 35px 50px;
+
+  font-size: 20px;
 
   background-color: #1c1c1c;
+  color: #00ff00;
 }
 
 .keyboard {

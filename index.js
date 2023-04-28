@@ -40,7 +40,7 @@ const vocabulary = {
     { name: 'k', isFunc: false },
     { name: 'l', isFunc: false },
     { name: ';', isFunc: false },
-    { name: '"', isFunc: false },
+    { name: '\"', isFunc: false },
     { name: 'Enter', isFunc: true },
     { name: 'Shift', isFunc: true },
     { name: 'z', isFunc: false },
@@ -81,12 +81,16 @@ const createKey = (element) => {
   const key = document.createElement('div');
   key.className = 'key';
   key.setAttribute('data-key', element.name.toLowerCase());
-  element.isFunc ? key.classList.add('key_func') : '';
+
+  if (element.isFunc) {
+    key.classList.add('key_func');
+  }
+
   if (element.name === 'Esc') {
-    key.setAttribute('data-key', 'escape');
+    //key.setAttribute('data-key', 'escape');
   }
   if (element.name === 'Del') {
-    key.setAttribute('data-key', 'delete');
+    //key.setAttribute('data-key', 'delete');
   }
   if (element.name === 'Tab') {
     key.style.width = '60px';
@@ -96,7 +100,7 @@ const createKey = (element) => {
   }
   if (element.name === 'Caps lock') {
     key.style.width = '80px';
-    key.setAttribute('data-key', 'capslock');
+    //key.setAttribute('data-key', 'capslock');
   }
   if (element.name === 'Shift') {
     key.style.width = '105px';
@@ -108,7 +112,7 @@ const createKey = (element) => {
   if (element.name === 'Ctrl') {
     key.style.flexGrow = '0';
     key.style.width = '50px';
-    key.setAttribute('data-key', 'control');
+    // key.setAttribute('data-key', 'control');
   }
   if (element.name === 'Alt') {
     key.style.flexGrow = '0';
@@ -119,17 +123,20 @@ const createKey = (element) => {
     key.style.width = '40px';
   }
   if (element.name === '⬆') {
-    key.setAttribute('data-key', 'arrowup');
+    //key.setAttribute('data-key', 'arrowup');
   }
   if (element.name === '⬅') {
-    key.setAttribute('data-key', 'arrowleft');
+    //key.setAttribute('data-key', 'arrowleft');
   }
   if (element.name === '⬇') {
-    key.setAttribute('data-key', 'arrowdown');
+    // key.setAttribute('data-key', 'arrowdown');
   }
   if (element.name === '➡') {
-    key.setAttribute('data-key', 'arrowright');
+    //key.setAttribute('data-key', 'arrowright');
   }
+  /* if (element.name === '"') {
+    key.setAttribute('data-key', 'quote');
+  } */
 
   const keyTop = document.createElement('div');
   keyTop.className = 'key-top';
@@ -141,16 +148,18 @@ const createKey = (element) => {
 vocabulary.en.forEach((el) => createKey(el));
 
 const $key = (key) => document.querySelector(`div[data-key='${key}']`);
-const codeToElement = {
-  CapsLock: $key('caps'),
+
+const showText = (letter) => {
+  screen.textContent += letter;
 };
 
 window.addEventListener('keydown', (e) => {
   if (e.key !== 'F12') {
     e.preventDefault();
   }
+
   const el = $key(e.key.toLowerCase());
-  console.log(el);
+
   if (el) {
     el.classList.add('pressed');
   }
@@ -159,12 +168,13 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
   const el = $key(e.key.toLowerCase());
   if (el) {
-    el.classList.remove('pressed');
     e.preventDefault();
+    el.classList.remove('pressed');
+  }
+  if (!el.classList.contains('key_func')) {
+    showText(e.key);
   }
 });
-
-let keyBtns = document.querySelectorAll('.key');
 
 keyboard.addEventListener('mousedown', (e) => {
   e.target.parentNode.classList.add('pressed');
@@ -172,4 +182,8 @@ keyboard.addEventListener('mousedown', (e) => {
 
 keyboard.addEventListener('mouseup', (e) => {
   e.target.parentNode.classList.remove('pressed');
+
+  if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {
+    showText(e.target.textContent);
+  }
 });
