@@ -1,6 +1,7 @@
 const vocabulary = {
   en: [
     { name: 'Esc', isFunc: true },
+    { name: '~', isFunc: false },
     { name: '1', isFunc: false },
     { name: '2', isFunc: false },
     { name: '3', isFunc: false },
@@ -14,7 +15,6 @@ const vocabulary = {
     { name: '+', isFunc: false },
     { name: '-', isFunc: false },
     { name: '=', isFunc: false },
-    { name: '~', isFunc: false },
     { name: 'Tab', isFunc: true },
     { name: 'q', isFunc: false },
     { name: 'w', isFunc: false },
@@ -53,6 +53,15 @@ const vocabulary = {
     { name: ',', isFunc: false },
     { name: '.', isFunc: false },
     { name: '?', isFunc: false },
+    { name: '⬆', isFunc: false },
+    { name: 'Shift', isFunc: true },
+    { name: 'Ctrl', isFunc: true },
+    { name: 'Alt', isFunc: true },
+    { name: ' ', isFunc: false },
+    { name: '⬅', isFunc: false },
+    { name: '⬇', isFunc: false },
+    { name: '➡', isFunc: false },
+    { name: '🪄', isFunc: true },
   ],
 };
 const screen = document.createElement('div');
@@ -73,7 +82,44 @@ const createKey = (element) => {
   const key = document.createElement('div');
   key.className = 'key';
   element.isFunc ? key.classList.add('key_func') : '';
-  element.name === 'Enter' ? (key.style.width = '80px') : '';
+  if (element.name === 'Esc') {
+    key.classList.add('esc');
+  }
+  if (element.name === 'Tab') {
+    key.classList.add('tab');
+    key.style.width = '60px';
+  }
+  if (element.name === 'Enter') {
+    key.classList.add('enter');
+    key.style.width = '80px';
+  }
+  if (element.name === 'Caps lock') {
+    key.classList.add('caps');
+    key.style.width = '80px';
+  }
+  if (element.name === 'Shift') {
+    key.classList.add('shift');
+    key.style.width = '80px';
+  }
+  if (element.name === ' ') {
+    key.classList.add('space');
+    key.style.flexGrow = '3';
+  }
+  if (element.name === 'Ctrl') {
+    key.classList.add('ctrl');
+    key.style.flexGrow = '0';
+    key.style.width = '50px';
+  }
+  if (element.name === 'Alt') {
+    key.classList.add('alt');
+    key.style.flexGrow = '0';
+    key.style.width = '50px';
+  }
+  if (element.name === '🪄') {
+    key.classList.add('magic');
+    key.style.flexGrow = '0';
+    key.style.width = '48px';
+  }
   const keyTop = document.createElement('div');
   keyTop.className = 'key-top';
   keyTop.textContent = element.name;
