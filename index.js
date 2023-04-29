@@ -77,6 +77,24 @@ const mainContainer = document.createElement('div');
 mainContainer.className = 'mainContainer';
 keyboard.appendChild(mainContainer);
 
+const createKeyTop = (el, index) => {
+  const keyTop = document.createElement('div');
+  keyTop.className = 'key-top';
+
+  keyTop.textContent = el.name;
+  if (
+    document.querySelector('div[data-key=capslock]') !== null &&
+    document.querySelector('div[data-key=capslock]').classList.contains('on') &&
+    !document.querySelector('.key').classList.contains('key_func')
+  ) {
+    keyTop.textContent = el.name.toUpperCase();
+  }
+
+  let keys = document.getElementsByClassName('key');
+  //console.log(keys[index]);
+  keys[index].appendChild(keyTop);
+};
+
 const createKey = (element) => {
   const key = document.createElement('div');
   key.className = 'key';
@@ -87,7 +105,7 @@ const createKey = (element) => {
   }
 
   if (element.name === 'Esc') {
-    //key.setAttribute('data-key', 'escape');
+    key.setAttribute('data-key', 'escape');
   }
   if (element.name === 'Del') {
     key.setAttribute('data-key', 'delete');
@@ -100,7 +118,7 @@ const createKey = (element) => {
   }
   if (element.name === 'Caps lock') {
     key.style.width = '80px';
-    //key.setAttribute('data-key', 'capslock');
+    key.setAttribute('data-key', 'capslock');
   }
   if (element.name === 'Shift') {
     key.style.width = '105px';
@@ -112,7 +130,7 @@ const createKey = (element) => {
   if (element.name === 'Ctrl') {
     key.style.flexGrow = '0';
     key.style.width = '50px';
-    // key.setAttribute('data-key', 'control');
+    key.setAttribute('data-key', 'control');
   }
   if (element.name === 'Alt') {
     key.style.flexGrow = '0';
@@ -129,25 +147,35 @@ const createKey = (element) => {
     key.setAttribute('data-key', 'arrowleft');
   }
   if (element.name === '⬇') {
-     key.setAttribute('data-key', 'arrowdown');
+    key.setAttribute('data-key', 'arrowdown');
   }
   if (element.name === '➡') {
     key.setAttribute('data-key', 'arrowright');
   }
 
-  const keyTop = document.createElement('div');
-  keyTop.className = 'key-top';
-  keyTop.textContent = element.name;
-  key.appendChild(keyTop);
+  //const keyTop = document.createElement('div');
+  //keyTop.className = 'key-top';
+
+  //keyTop.textContent = element.name;
+  /*  if (document.querySelector('div[data-key=capslock]') !== null) {
+    if (document.querySelector('div[data-key=capslock]').classList.contains('on')) {
+      keyTop.textContent = element.name.toUpperCase();
+    }
+  } */
+  //key.appendChild(createKeyTop(element));
+
   mainContainer.appendChild(key);
 };
 
 vocabulary.en.forEach((el) => createKey(el));
+vocabulary.en.forEach((el, index) => createKeyTop(el, index));
 
 const $key = (key) => document.querySelector(`div[data-key="${key.toLocaleLowerCase()}"]`);
 
 const showText = (letter) => {
-  screen.textContent += letter;
+  document.querySelector(`div[data-key=capslock]`).classList.contains('on')
+    ? (screen.textContent += letter.toUpperCase())
+    : (screen.textContent += letter);
 };
 
 window.addEventListener('keydown', (e) => {
@@ -169,12 +197,25 @@ window.addEventListener('keyup', (e) => {
     el.classList.remove('pressed');
   }
 
+  if (el !== null) {
+    if (!el.classList.contains('key_func')) {
+      const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`);
+      showText(letter.textContent);
+    } else {
+      switch (true) {
+        case el.dataset.key === 'capslock':
+          el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
+          break;
 
-
-  
-  if (el!==null && !el.classList.contains('key_func')) {
-    const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`)
-    showText(letter.textContent);
+        /*  case 'value2':  
+          ...
+          [break]
+      
+        default:
+          ...
+          [break] */
+      }
+    }
   }
 });
 
@@ -184,6 +225,11 @@ keyboard.addEventListener('mousedown', (e) => {
 
 keyboard.addEventListener('mouseup', (e) => {
   e.target.parentNode.classList.remove('pressed');
+  if (e.target.parentNode.dataset.key === 'capslock') {
+    e.target.parentNode.classList.contains('on')
+      ? e.target.parentNode.classList.remove('on')
+      : e.target.parentNode.classList.add('on');
+  }
 
   if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {
     showText(e.target.textContent);
