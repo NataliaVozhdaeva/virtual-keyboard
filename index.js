@@ -62,6 +62,69 @@ const vocabulary = {
     { name: '⬇', isFunc: false },
     { name: '➡', isFunc: false },
   ],
+  ru: [
+    { name: 'Esc', isFunc: true },
+    { name: '1', isFunc: false },
+    { name: '2', isFunc: false },
+    { name: '3', isFunc: false },
+    { name: '4', isFunc: false },
+    { name: '5', isFunc: false },
+    { name: '6', isFunc: false },
+    { name: '7', isFunc: false },
+    { name: '8', isFunc: false },
+    { name: '9', isFunc: false },
+    { name: '0', isFunc: false },
+    { name: '+', isFunc: false },
+    { name: '-', isFunc: false },
+    { name: '=', isFunc: false },
+    { name: 'Del', isFunc: true },
+    { name: 'Tab', isFunc: true },
+    { name: 'й', isFunc: false },
+    { name: 'ц', isFunc: false },
+    { name: 'у', isFunc: false },
+    { name: 'к', isFunc: false },
+    { name: 'е', isFunc: false },
+    { name: 'н', isFunc: false },
+    { name: 'г', isFunc: false },
+    { name: 'ш', isFunc: false },
+    { name: 'щ', isFunc: false },
+    { name: 'з', isFunc: false },
+    { name: 'х', isFunc: false },
+    { name: 'ъ', isFunc: false },
+    { name: 'Backspace', isFunc: true },
+    { name: 'Caps lock', isFunc: true },
+    { name: 'ф', isFunc: false },
+    { name: 'ы', isFunc: false },
+    { name: 'в', isFunc: false },
+    { name: 'а', isFunc: false },
+    { name: 'п', isFunc: false },
+    { name: 'р', isFunc: false },
+    { name: 'о', isFunc: false },
+    { name: 'л', isFunc: false },
+    { name: 'д', isFunc: false },
+    { name: 'ж', isFunc: false },
+    { name: 'э', isFunc: false },
+    { name: 'Enter', isFunc: true },
+    { name: 'Shift', isFunc: true },
+    { name: 'я', isFunc: false },
+    { name: 'ч', isFunc: false },
+    { name: 'с', isFunc: false },
+    { name: 'м', isFunc: false },
+    { name: 'и', isFunc: false },
+    { name: 'т', isFunc: false },
+    { name: 'ь', isFunc: false },
+    { name: 'б', isFunc: false },
+    { name: 'ю', isFunc: false },
+    { name: '.', isFunc: false },
+    { name: '⬆', isFunc: false },
+    { name: '🪄', isFunc: true },
+    { name: 'Ctrl', isFunc: true },
+    { name: 'Alt', isFunc: true },
+    { name: ' ', isFunc: false },
+    { name: '⬅', isFunc: false },
+    { name: '⬇', isFunc: false },
+    { name: '➡', isFunc: false },
+  ],
 };
 const screen = document.createElement('textarea');
 screen.className = 'screen';
@@ -90,7 +153,7 @@ const createKeyTop = (el, index) => {
     keyTop.textContent = el.name.toUpperCase();
   }
 
-  let keys = document.getElementsByClassName('key');
+  const keys = document.getElementsByClassName('key');
   keys[index].appendChild(keyTop);
 };
 
@@ -162,8 +225,8 @@ const $key = (key) => document.querySelector(`div[data-key="${key.toLowerCase()}
 
 const showText = (letter) => {
   if (
-    document.querySelector(`div[data-key=capslock]`).classList.contains('on') ||
-    document.querySelector(`div[data-key=shift]`).classList.contains('on')
+    document.querySelector('div[data-key=capslock]').classList.contains('on') ||
+    document.querySelector('div[data-key=shift]').classList.contains('on')
   ) {
     screen.value += letter.toUpperCase();
   } else {
@@ -178,13 +241,24 @@ window.addEventListener('keydown', (e) => {
 
   const el = $key(e.key.toLowerCase());
 
+  switch (true) {
+    case el === null:
+      break;
+    case el.dataset.key === 'shift':
+      el.classList.add('on');
+    default:
+      el.classList.add('pressed');
+  }
+  /* if (el === null) {
+    return;
+  }
   if (el) {
     el.classList.add('pressed');
   }
 
   if (el.dataset.key === 'shift') {
     el.classList.add('on');
-  }
+  } */
 });
 
 window.addEventListener('keyup', (e) => {
@@ -194,30 +268,34 @@ window.addEventListener('keyup', (e) => {
     el.classList.remove('pressed');
   }
 
-  if (el.dataset.key === 'shift') {
-    el.classList.remove('on');
-  }
-
   if (el !== null) {
-    if (!el.classList.contains('key_func')) {
-      const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`);
-      showText(letter.textContent);
-    } else {
-      switch (true) {
-        case el.dataset.key === 'capslock':
-          el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
-          break;
-        case el.dataset.key === 'tab':
-          screen.value += '    ';
-          break;
-        /* case 'value2':  
-          ...
-          [break]
-      
-        default:
-          ...
-          [break] */
-      }
+    switch (true) {
+      case el.dataset.key === 'capslock':
+        el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
+        break;
+      case el.dataset.key === 'tab':
+        screen.value += '    ';
+        break;
+      case el.dataset.key === 'enter':
+        console.log('enter');
+        screen.value += '\n';
+        break;
+      case el.dataset.key === 'shift':
+        el.classList.remove('on');
+        break;
+      case el.dataset.key === 'alt':
+        console.log('alt');
+        el.classList.remove('on');
+        break;
+      case el.dataset.key === 'control':
+        console.log('control');
+        el.classList.remove('on');
+        /* vocabulary.en.forEach((el) => createKey(el));
+vocabulary.en.forEach((el, index) => createKeyTop(el, index)); */
+        break;
+      default:
+        const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`);
+        showText(letter.textContent);
     }
   }
 });
@@ -250,8 +328,3 @@ keyboard.addEventListener('mouseup', (e) => {
     showText(e.target.textContent);
   }
 });
-
-/*
-TODO: текст вылазит за пределы экрана
-
- */
