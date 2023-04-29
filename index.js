@@ -158,16 +158,16 @@ const createKey = (element) => {
 vocabulary.en.forEach((el) => createKey(el));
 vocabulary.en.forEach((el, index) => createKeyTop(el, index));
 
-const $key = (key) => document.querySelector(`div[data-key="${key.toLocaleLowerCase()}"]`);
+const $key = (key) => document.querySelector(`div[data-key="${key.toLowerCase()}"]`);
 
 const showText = (letter) => {
   if (
     document.querySelector(`div[data-key=capslock]`).classList.contains('on') ||
     document.querySelector(`div[data-key=shift]`).classList.contains('on')
   ) {
-    screen.textContent += letter.toUpperCase();
+    screen.value += letter.toUpperCase();
   } else {
-    screen.textContent += letter;
+    screen.value += letter;
   }
 };
 
@@ -193,7 +193,7 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
     el.classList.remove('pressed');
   }
-  
+
   if (el.dataset.key === 'shift') {
     el.classList.remove('on');
   }
@@ -208,8 +208,7 @@ window.addEventListener('keyup', (e) => {
           el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
           break;
         case el.dataset.key === 'tab':
-          console.log('    ');
-          screen.textContent += '\&nbsp;\&nbsp;\&nbsp;\&nbsp;';
+          screen.value += '    ';
           break;
         /* case 'value2':  
           ...
@@ -241,6 +240,10 @@ keyboard.addEventListener('mouseup', (e) => {
     e.target.parentNode.classList.contains('on')
       ? e.target.parentNode.classList.remove('on')
       : e.target.parentNode.classList.add('on');
+  }
+
+  if (e.target.parentNode.dataset.key === 'tab') {
+    screen.value += '    ';
   }
 
   if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {

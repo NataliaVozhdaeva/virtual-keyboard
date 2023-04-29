@@ -1,5 +1,6 @@
 .screen {
   box-sizing: border-box;
+  display: block;
   width: 980px;
   height: 300px;
   margin: auto;
