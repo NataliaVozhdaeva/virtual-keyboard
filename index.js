@@ -221,10 +221,18 @@ window.addEventListener('keyup', (e) => {
 
 keyboard.addEventListener('mousedown', (e) => {
   e.target.parentNode.classList.add('pressed');
+  if (e.target.parentNode.dataset.key === 'shift') {
+    e.target.parentNode.classList.add('on');
+  }
 });
 
 keyboard.addEventListener('mouseup', (e) => {
   e.target.parentNode.classList.remove('pressed');
+
+  if (e.target.parentNode.dataset.key === 'shift') {
+    e.target.parentNode.classList.remove('on');
+  }
+
   if (e.target.parentNode.dataset.key === 'capslock') {
     e.target.parentNode.classList.contains('on')
       ? e.target.parentNode.classList.remove('on')
@@ -235,3 +243,8 @@ keyboard.addEventListener('mouseup', (e) => {
     showText(e.target.textContent);
   }
 });
+
+/*
+TODO: текст вылазит за пределы экрана
+
+ */
