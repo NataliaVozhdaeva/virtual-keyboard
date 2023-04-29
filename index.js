@@ -40,7 +40,7 @@ const vocabulary = {
     { name: 'k', isFunc: false },
     { name: 'l', isFunc: false },
     { name: ';', isFunc: false },
-    { name: '\"', isFunc: false },
+    { name: "'", isFunc: false },
     { name: 'Enter', isFunc: true },
     { name: 'Shift', isFunc: true },
     { name: 'z', isFunc: false },
@@ -90,7 +90,7 @@ const createKey = (element) => {
     //key.setAttribute('data-key', 'escape');
   }
   if (element.name === 'Del') {
-    //key.setAttribute('data-key', 'delete');
+    key.setAttribute('data-key', 'delete');
   }
   if (element.name === 'Tab') {
     key.style.width = '60px';
@@ -147,7 +147,7 @@ const createKey = (element) => {
 
 vocabulary.en.forEach((el) => createKey(el));
 
-const $key = (key) => document.querySelector(`div[data-key='${key}']`);
+const $key = (key) => document.querySelector(`div[data-key="${key}"]`);
 
 const showText = (letter) => {
   screen.textContent += letter;
@@ -171,7 +171,7 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
     el.classList.remove('pressed');
   }
-  if (!el.classList.contains('key_func')) {
+  if (el!==null && !el.classList.contains('key_func')) {
     showText(e.key);
   }
 });
