@@ -146,9 +146,9 @@ const createKeyTop = (el, index) => {
 
   keyTop.textContent = el.name;
   if (
-    document.querySelector('div[data-key=capslock]') !== null &&
-    document.querySelector('div[data-key=capslock]').classList.contains('on') &&
-    !document.querySelector('.key').classList.contains('key_func')
+    document.querySelector('div[data-key=capslock]') !== null
+    && document.querySelector('div[data-key=capslock]').classList.contains('on')
+    && !document.querySelector('.key').classList.contains('key_func')
   ) {
     keyTop.textContent = el.name.toUpperCase();
   }
@@ -225,8 +225,8 @@ const $key = (key) => document.querySelector(`div[data-key="${key.toLowerCase()}
 
 const showText = (letter) => {
   if (
-    document.querySelector('div[data-key=capslock]').classList.contains('on') ||
-    document.querySelector('div[data-key=shift]').classList.contains('on')
+    document.querySelector('div[data-key=capslock]').classList.contains('on')
+    || document.querySelector('div[data-key=shift]').classList.contains('on')
   ) {
     screen.value += letter.toUpperCase();
   } else {
@@ -246,19 +246,28 @@ window.addEventListener('keydown', (e) => {
       break;
     case el.dataset.key === 'shift':
       el.classList.add('on');
+      break;
+    case el.dataset.key === 'alt':
+      el.classList.add('on');
+      if (document.querySelector('div[data-key=control]').classList.contains('on')) {
+        document.querySelectorAll('.key').forEach((element) => {
+          element.innerHTML = '';
+        });
+        vocabulary.ru.forEach((item, index) => createKeyTop(item, index));
+      }
+      break;
+    case el.dataset.key === 'control':
+      el.classList.add('on');
+      if (document.querySelector('div[data-key=alt]').classList.contains('on')) {
+        document.querySelectorAll('.key').forEach((element) => {
+          element.innerHTML = '';
+        });
+        vocabulary.ru.forEach((item, index) => createKeyTop(item, index));
+      }
+      break;
     default:
       el.classList.add('pressed');
   }
-  /* if (el === null) {
-    return;
-  }
-  if (el) {
-    el.classList.add('pressed');
-  }
-
-  if (el.dataset.key === 'shift') {
-    el.classList.add('on');
-  } */
 });
 
 window.addEventListener('keyup', (e) => {
@@ -277,24 +286,19 @@ window.addEventListener('keyup', (e) => {
         screen.value += '    ';
         break;
       case el.dataset.key === 'enter':
-        console.log('enter');
         screen.value += '\n';
         break;
       case el.dataset.key === 'shift':
         el.classList.remove('on');
         break;
       case el.dataset.key === 'alt':
-        console.log('alt');
         el.classList.remove('on');
         break;
       case el.dataset.key === 'control':
-        console.log('control');
         el.classList.remove('on');
-        /* vocabulary.en.forEach((el) => createKey(el));
-vocabulary.en.forEach((el, index) => createKeyTop(el, index)); */
         break;
       default:
-        const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`);
+        const letter = keyboard.querySelector(`div[data-key="${e.key.toLowerCase()}"]`);
         showText(letter.textContent);
     }
   }
