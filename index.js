@@ -123,20 +123,17 @@ const createKey = (element) => {
     key.style.width = '40px';
   }
   if (element.name === '⬆') {
-    //key.setAttribute('data-key', 'arrowup');
+    key.setAttribute('data-key', 'arrowup');
   }
   if (element.name === '⬅') {
-    //key.setAttribute('data-key', 'arrowleft');
+    key.setAttribute('data-key', 'arrowleft');
   }
   if (element.name === '⬇') {
-    // key.setAttribute('data-key', 'arrowdown');
+     key.setAttribute('data-key', 'arrowdown');
   }
   if (element.name === '➡') {
-    //key.setAttribute('data-key', 'arrowright');
+    key.setAttribute('data-key', 'arrowright');
   }
-  /* if (element.name === '"') {
-    key.setAttribute('data-key', 'quote');
-  } */
 
   const keyTop = document.createElement('div');
   keyTop.className = 'key-top';
@@ -147,7 +144,7 @@ const createKey = (element) => {
 
 vocabulary.en.forEach((el) => createKey(el));
 
-const $key = (key) => document.querySelector(`div[data-key="${key}"]`);
+const $key = (key) => document.querySelector(`div[data-key="${key.toLocaleLowerCase()}"]`);
 
 const showText = (letter) => {
   screen.textContent += letter;
@@ -171,8 +168,13 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
     el.classList.remove('pressed');
   }
+
+
+
+  
   if (el!==null && !el.classList.contains('key_func')) {
-    showText(e.key);
+    const letter = keyboard.querySelector(`div[data-key="${e.key.toLocaleLowerCase()}"]`)
+    showText(letter.textContent);
   }
 });
 
