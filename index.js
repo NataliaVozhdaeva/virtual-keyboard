@@ -63,7 +63,7 @@ const vocabulary = {
     { name: '➡', isFunc: false },
   ],
 };
-const screen = document.createElement('div');
+const screen = document.createElement('textarea');
 screen.className = 'screen';
 
 const keyboard = document.createElement('div');
@@ -193,6 +193,10 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
     el.classList.remove('pressed');
   }
+  
+  if (el.dataset.key === 'shift') {
+    el.classList.remove('on');
+  }
 
   if (el !== null) {
     if (!el.classList.contains('key_func')) {
@@ -203,9 +207,9 @@ window.addEventListener('keyup', (e) => {
         case el.dataset.key === 'capslock':
           el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
           break;
-        case el.dataset.key === 'shift':
-          el.classList.remove('on');
-
+        case el.dataset.key === 'tab':
+          console.log('    ');
+          screen.textContent += '\&nbsp;\&nbsp;\&nbsp;\&nbsp;';
           break;
         /* case 'value2':  
           ...
