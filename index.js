@@ -91,7 +91,6 @@ const createKeyTop = (el, index) => {
   }
 
   let keys = document.getElementsByClassName('key');
-  //console.log(keys[index]);
   keys[index].appendChild(keyTop);
 };
 
@@ -153,17 +152,6 @@ const createKey = (element) => {
     key.setAttribute('data-key', 'arrowright');
   }
 
-  //const keyTop = document.createElement('div');
-  //keyTop.className = 'key-top';
-
-  //keyTop.textContent = element.name;
-  /*  if (document.querySelector('div[data-key=capslock]') !== null) {
-    if (document.querySelector('div[data-key=capslock]').classList.contains('on')) {
-      keyTop.textContent = element.name.toUpperCase();
-    }
-  } */
-  //key.appendChild(createKeyTop(element));
-
   mainContainer.appendChild(key);
 };
 
@@ -173,9 +161,14 @@ vocabulary.en.forEach((el, index) => createKeyTop(el, index));
 const $key = (key) => document.querySelector(`div[data-key="${key.toLocaleLowerCase()}"]`);
 
 const showText = (letter) => {
-  document.querySelector(`div[data-key=capslock]`).classList.contains('on')
-    ? (screen.textContent += letter.toUpperCase())
-    : (screen.textContent += letter);
+  if (
+    document.querySelector(`div[data-key=capslock]`).classList.contains('on') ||
+    document.querySelector(`div[data-key=shift]`).classList.contains('on')
+  ) {
+    screen.textContent += letter.toUpperCase();
+  } else {
+    screen.textContent += letter;
+  }
 };
 
 window.addEventListener('keydown', (e) => {
@@ -187,6 +180,10 @@ window.addEventListener('keydown', (e) => {
 
   if (el) {
     el.classList.add('pressed');
+  }
+
+  if (el.dataset.key === 'shift') {
+    el.classList.add('on');
   }
 });
 
@@ -206,8 +203,11 @@ window.addEventListener('keyup', (e) => {
         case el.dataset.key === 'capslock':
           el.classList.contains('on') ? el.classList.remove('on') : el.classList.add('on');
           break;
+        case el.dataset.key === 'shift':
+          el.classList.remove('on');
 
-        /*  case 'value2':  
+          break;
+        /* case 'value2':  
           ...
           [break]
       
