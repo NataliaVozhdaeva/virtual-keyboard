@@ -157,6 +157,17 @@ const showText = (letter) => {
   }
 };
 
+let lang = 'en';
+
+const langHandler = () => {
+ if(lang === 'en'){
+  vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
+ lang="ru";
+ } else {
+  vocabulary.forEach((el, index) => createKeyTop(el, index, el.name));
+  lang="en";
+ }
+}
 
 window.addEventListener('keydown', (e) => {
   if (e.key !== 'F12') {
@@ -164,7 +175,6 @@ window.addEventListener('keydown', (e) => {
   }
 
     let el;
-
     if(e.key === 'Shift' || e.key === 'Alt' || e.key === 'Control'){
       el = $key(e.key.toLowerCase());
     } else{
@@ -181,9 +191,9 @@ window.addEventListener('keydown', (e) => {
     case el.dataset.key === 'alt':
       el.classList.add('on');
       if (document.querySelector('div[data-key=control]').classList.contains('on')) {
-        lang = 'ru';
         document.querySelectorAll('.key').forEach((element) => element.innerHTML = '');
-        vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
+        //vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
+        langHandler();
       }
       el.classList.add('pressed');
       break;
@@ -193,7 +203,8 @@ window.addEventListener('keydown', (e) => {
         document.querySelectorAll('.key').forEach((element) => {
           element.innerHTML = '';
         });        
-        vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
+        //vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
+        langHandler();
       }
       el.classList.add('pressed');
       break;
