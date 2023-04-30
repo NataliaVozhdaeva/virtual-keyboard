@@ -72,11 +72,11 @@
 }
 
 .key_func .key-top {
+  box-sizing: border-box;
   justify-content: flex-start;
 
   font-size: 15px;
-  line-height: 45px;
-  text-indent: 7px;
+  padding-left: 4px;
   background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2), #cdd3de;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 4px;

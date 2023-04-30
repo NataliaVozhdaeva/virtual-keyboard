@@ -1,6 +1,6 @@
-const vocabulary = {
-  en: [
-    { name: 'Esc', isFunc: true },
+const vocabulary = 
+   [
+    { name: 'Esc', ruName:'Уйти', isFunc: true },
     { name: '1', isFunc: false },
     { name: '2', isFunc: false },
     { name: '3', isFunc: false },
@@ -12,120 +12,57 @@ const vocabulary = {
     { name: '9', isFunc: false },
     { name: '0', isFunc: false },
     { name: '+', isFunc: false },
-    { name: '-', isFunc: false },
-    { name: '=', isFunc: false },
-    { name: 'Del', isFunc: true },
-    { name: 'Tab', isFunc: true },
-    { name: 'q', isFunc: false },
-    { name: 'w', isFunc: false },
-    { name: 'e', isFunc: false },
-    { name: 'r', isFunc: false },
-    { name: 't', isFunc: false },
-    { name: 'y', isFunc: false },
-    { name: 'u', isFunc: false },
-    { name: 'i', isFunc: false },
-    { name: 'o', isFunc: false },
-    { name: 'p', isFunc: false },
-    { name: '[', isFunc: false },
-    { name: ']', isFunc: false },
-    { name: 'Backspace', isFunc: true },
-    { name: 'Caps lock', isFunc: true },
-    { name: 'a', isFunc: false },
-    { name: 's', isFunc: false },
-    { name: 'd', isFunc: false },
-    { name: 'f', isFunc: false },
-    { name: 'g', isFunc: false },
-    { name: 'h', isFunc: false },
-    { name: 'j', isFunc: false },
-    { name: 'k', isFunc: false },
-    { name: 'l', isFunc: false },
-    { name: ';', isFunc: false },
-    { name: "'", isFunc: false },
-    { name: 'Enter', isFunc: true },
-    { name: 'Shift', isFunc: true },
-    { name: 'z', isFunc: false },
-    { name: 'x', isFunc: false },
-    { name: 'c', isFunc: false },
-    { name: 'v', isFunc: false },
-    { name: 'b', isFunc: false },
-    { name: 'n', isFunc: false },
-    { name: 'm', isFunc: false },
-    { name: ',', isFunc: false },
-    { name: '.', isFunc: false },
-    { name: '/', isFunc: false },
-    { name: '⬆', isFunc: false },
+    { name: '-',  isFunc: false },
+    { name: '=',  isFunc: false },
+    { name: 'Del', ruName:'Дел', isFunc: true },
+    { name: 'Tab', ruName:'Таб', isFunc: true },
+    { name: 'q', ruName:'й', isFunc: false },
+    { name: 'w', ruName:'ц', isFunc: false },
+    { name: 'e', ruName:'у', isFunc: false },
+    { name: 'r', ruName:'к', isFunc: false },
+    { name: 't', ruName:'е', isFunc: false },
+    { name: 'y', ruName:'н', isFunc: false },
+    { name: 'u', ruName:'г', isFunc: false },
+    { name: 'i', ruName:'ш', isFunc: false },
+    { name: 'o', ruName:'щ', isFunc: false },
+    { name: 'p', ruName:'з', isFunc: false },
+    { name: '[', ruName:'х', isFunc: false },
+    { name: ']', ruName:'ъ', isFunc: false },
+    { name: 'Backspace', ruName:'Стереть', isFunc: true },
+    { name: 'Caps lock', ruName:'Большие буквы', isFunc: true },
+    { name: 'a', ruName:'ф', isFunc: false },
+    { name: 's', ruName:'ы', isFunc: false },
+    { name: 'd', ruName:'в', isFunc: false },
+    { name: 'f', ruName:'а', isFunc: false },
+    { name: 'g', ruName:'п', isFunc: false },
+    { name: 'h', ruName:'р', isFunc: false },
+    { name: 'j', ruName:'о', isFunc: false },
+    { name: 'k', ruName:'л', isFunc: false },
+    { name: 'l', ruName:'д', isFunc: false },
+    { name: ';', ruName:'ж', isFunc: false },
+    { name: "'", ruName:'э', isFunc: false },
+    { name: 'Enter', ruName:'Войдите', isFunc: true },
+    { name: 'Shift', ruName:'Большая буква', isFunc: true },
+    { name: 'z', ruName:'я', isFunc: false },
+    { name: 'x', ruName:'ч', isFunc: false },
+    { name: 'c', ruName:'с', isFunc: false },
+    { name: 'v', ruName:'м', isFunc: false },
+    { name: 'b', ruName:'и', isFunc: false },
+    { name: 'n', ruName:'т', isFunc: false },
+    { name: 'm', ruName:'ь', isFunc: false },
+    { name: ',', ruName:'б', isFunc: false },
+    { name: '.', ruName:'ю', isFunc: false },
+    { name: '/', ruName:'.', isFunc: false },
+    { name: '⬆', ruName:'⬆', isFunc: false },
     { name: '🪄', isFunc: true },
-    { name: 'Ctrl', isFunc: true },
-    { name: 'Alt', isFunc: true },
-    { name: ' ', isFunc: false },
-    { name: '⬅', isFunc: false },
-    { name: '⬇', isFunc: false },
-    { name: '➡', isFunc: false },
-  ],
-  ru: [
-    { name: 'Esc', isFunc: true },
-    { name: '1', isFunc: false },
-    { name: '2', isFunc: false },
-    { name: '3', isFunc: false },
-    { name: '4', isFunc: false },
-    { name: '5', isFunc: false },
-    { name: '6', isFunc: false },
-    { name: '7', isFunc: false },
-    { name: '8', isFunc: false },
-    { name: '9', isFunc: false },
-    { name: '0', isFunc: false },
-    { name: '+', isFunc: false },
-    { name: '-', isFunc: false },
-    { name: '=', isFunc: false },
-    { name: 'Del', isFunc: true },
-    { name: 'Tab', isFunc: true },
-    { name: 'й', isFunc: false },
-    { name: 'ц', isFunc: false },
-    { name: 'у', isFunc: false },
-    { name: 'к', isFunc: false },
-    { name: 'е', isFunc: false },
-    { name: 'н', isFunc: false },
-    { name: 'г', isFunc: false },
-    { name: 'ш', isFunc: false },
-    { name: 'щ', isFunc: false },
-    { name: 'з', isFunc: false },
-    { name: 'х', isFunc: false },
-    { name: 'ъ', isFunc: false },
-    { name: 'Backspace', isFunc: true },
-    { name: 'Caps lock', isFunc: true },
-    { name: 'ф', isFunc: false },
-    { name: 'ы', isFunc: false },
-    { name: 'в', isFunc: false },
-    { name: 'а', isFunc: false },
-    { name: 'п', isFunc: false },
-    { name: 'р', isFunc: false },
-    { name: 'о', isFunc: false },
-    { name: 'л', isFunc: false },
-    { name: 'д', isFunc: false },
-    { name: 'ж', isFunc: false },
-    { name: 'э', isFunc: false },
-    { name: 'Enter', isFunc: true },
-    { name: 'Shift', isFunc: true },
-    { name: 'я', isFunc: false },
-    { name: 'ч', isFunc: false },
-    { name: 'с', isFunc: false },
-    { name: 'м', isFunc: false },
-    { name: 'и', isFunc: false },
-    { name: 'т', isFunc: false },
-    { name: 'ь', isFunc: false },
-    { name: 'б', isFunc: false },
-    { name: 'ю', isFunc: false },
-    { name: '.', isFunc: false },
-    { name: '⬆', isFunc: false },
-    { name: '🪄', isFunc: true },
-    { name: 'Ctrl', isFunc: true },
-    { name: 'Alt', isFunc: true },
-    { name: ' ', isFunc: false },
-    { name: '⬅', isFunc: false },
-    { name: '⬇', isFunc: false },
-    { name: '➡', isFunc: false },
-  ],
-};
+    { name: 'Ctrl', ruName:'Ктрл', isFunc: true },
+    { name: 'Alt', ruName:'Др', isFunc: true },
+    { name: ' ', ruName:' ', isFunc: false },
+    { name: '⬅', ruName:'⬅', isFunc: false },
+    { name: '⬇', ruName:'⬇', isFunc: false },
+    { name: '➡', ruName:'➡', isFunc: false },
+  ]
+
 const screen = document.createElement('textarea');
 screen.className = 'screen';
 
@@ -140,17 +77,22 @@ const mainContainer = document.createElement('div');
 mainContainer.className = 'mainContainer';
 keyboard.appendChild(mainContainer);
 
-const createKeyTop = (el, index) => {
+const createKeyTop = (el, index, mod) => {
   const keyTop = document.createElement('div');
   keyTop.className = 'key-top';
 
-  keyTop.textContent = el.name;
+  if(mod === undefined){
+    keyTop.textContent = el.name
+  } else{
+    keyTop.textContent = mod;
+  }
+   
   if (
     document.querySelector('div[data-key=capslock]') !== null
     && document.querySelector('div[data-key=capslock]').classList.contains('on')
     && !document.querySelector('.key').classList.contains('key_func')
   ) {
-    keyTop.textContent = el.name.toUpperCase();
+    keyTop.textContent = mod.toUpperCase();
   }
 
   const keys = document.getElementsByClassName('key');
@@ -165,7 +107,10 @@ const createKey = (element) => {
   if (element.isFunc) {
     key.classList.add('key_func');
   }
-
+  if (element.name === 'backspace') {
+    key.setAttribute('data-key', 'backspace');
+    key.style.width = '90px'
+  }
   if (element.name === 'Esc') {
     key.setAttribute('data-key', 'escape');
   }
@@ -218,8 +163,8 @@ const createKey = (element) => {
   mainContainer.appendChild(key);
 };
 
-vocabulary.en.forEach((el) => createKey(el));
-vocabulary.en.forEach((el, index) => createKeyTop(el, index));
+vocabulary.forEach((el) => createKey(el));
+vocabulary.forEach((el, index) => createKeyTop(el, index, el.name));
 
 const $key = (key) => document.querySelector(`div[data-key="${key.toLowerCase()}"]`);
 
@@ -234,12 +179,19 @@ const showText = (letter) => {
   }
 };
 
+
 window.addEventListener('keydown', (e) => {
   if (e.key !== 'F12') {
     e.preventDefault();
   }
 
-  const el = $key(e.key.toLowerCase());
+  let el;
+
+  //if(lang === 'en'){
+    el = $key(e.key.toLowerCase());
+ /*  } else {
+    el = element.name.toLowerCase()
+  }   */
 
   switch (true) {
     case el === null:
@@ -250,10 +202,9 @@ window.addEventListener('keydown', (e) => {
     case el.dataset.key === 'alt':
       el.classList.add('on');
       if (document.querySelector('div[data-key=control]').classList.contains('on')) {
-        document.querySelectorAll('.key').forEach((element) => {
-          element.innerHTML = '';
-        });
-        vocabulary.ru.forEach((item, index) => createKeyTop(item, index));
+        lang = 'ru';
+        document.querySelectorAll('.key').forEach((element) => element.innerHTML = '');
+        vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
       }
       break;
     case el.dataset.key === 'control':
@@ -261,8 +212,8 @@ window.addEventListener('keydown', (e) => {
       if (document.querySelector('div[data-key=alt]').classList.contains('on')) {
         document.querySelectorAll('.key').forEach((element) => {
           element.innerHTML = '';
-        });
-        vocabulary.ru.forEach((item, index) => createKeyTop(item, index));
+        });        
+        vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
       }
       break;
     default:
