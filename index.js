@@ -21,22 +21,22 @@ const vocabulary = [
     name: '5', code: 'Digit5', ruName: '5', enSymbolName: '%', ruSymbolName: '%', isFunc: false,
   },
   {
-    name: '6', code: 'Digit6',  ruName: '6', enSymbolName: '^', ruSymbolName: ':', isFunc: false,
+    name: '6', code: 'Digit6', ruName: '6', enSymbolName: '^', ruSymbolName: ':', isFunc: false,
   },
   {
     name: '7', code: 'Digit7', ruName: '7', enSymbolName: '&', ruSymbolName: '?', isFunc: false,
   },
   {
-    name: '8', code: 'Digit8',  ruName: '8', enSymbolName: '*', ruSymbolName: '*', isFunc: false,
+    name: '8', code: 'Digit8', ruName: '8', enSymbolName: '*', ruSymbolName: '*', isFunc: false,
   },
   {
-    name: '9', code: 'Digit9',  ruName: '9',enSymbolName: '(', ruSymbolName: '(', isFunc: false,
+    name: '9', code: 'Digit9', ruName: '9', enSymbolName: '(', ruSymbolName: '(', isFunc: false,
   },
   {
-    name: '0', code: 'Digit0',  ruName: '0', enSymbolName: '(', ruSymbolName: '(', isFunc: false,
+    name: '0', code: 'Digit0', ruName: '0', enSymbolName: '(', ruSymbolName: '(', isFunc: false,
   },
   {
-    name: '-', code: 'Minus',  ruName: '-', enSymbolName: '_', ruSymbolName: '_', isFunc: false,
+    name: '-', code: 'Minus', ruName: '-', enSymbolName: '_', ruSymbolName: '_', isFunc: false,
   },
   {
     name: '=', code: 'Equal', ruName: '=', enSymbolName: '+', ruSymbolName: '+', isFunc: false,
@@ -161,7 +161,9 @@ const vocabulary = [
   {
     name: '⬆', code: 'ArrowUp', ruName: '⬆', isFunc: false,
   },
-  { name: '🪄', code: 'old', ruName: '🪄', isFunc: true },
+  {
+    name: '🪄', code: 'old', ruName: '🪄', isFunc: true,
+  },
   {
     name: 'Ctrl', code: 'Control', ruName: 'Ктрл', isFunc: true,
   },
@@ -263,6 +265,30 @@ vocabulary.forEach((el, index) => createKeyTop(el, index, el.name));
 
 const $key = (key) => document.querySelector(`div[data-key="${key.toLowerCase()}"]`);
 
+const cleanKeyboard = () => {
+  for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+    document.querySelectorAll('.key')[i].innerHTML = '';
+  }
+};
+
+let lang = 'en';
+
+const capsHandler = () => {
+  vocabulary.forEach((el, index) => {
+    if (lang === 'en') {
+      if (!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')) {
+        createKeyTop(el, index, el.name.toUpperCase());
+      } else {
+        createKeyTop(el, index, el.name);
+      }
+    } else if (!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')) {
+      createKeyTop(el, index, el.ruName.toUpperCase());
+    } else {
+      createKeyTop(el, index, el.ruName);
+    }
+  });
+};
+
 const showText = (letter) => {
   if (
     document.querySelector('div[data-key=capslock]').classList.contains('on')
@@ -273,8 +299,6 @@ const showText = (letter) => {
     screen.value += letter;
   }
 };
-
-let lang = 'en';
 
 function getLocalStorage() {
   if (localStorage.getItem('lang')) {
@@ -294,38 +318,13 @@ const langHandler = () => {
   if (lang === 'en') {
     vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
     lang = 'ru';
-    setLocalStorage()
+    setLocalStorage();
   } else {
     vocabulary.forEach((el, index) => createKeyTop(el, index, el.name));
     lang = 'en';
-    setLocalStorage()
+    setLocalStorage();
   }
 };
-
-const capsHandler = () => {
-  vocabulary.forEach((el, index) => {
-    if (lang === 'en') {
-      if (!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')) {
-        createKeyTop(el, index, el.name.toUpperCase());
-      } else {
-        createKeyTop(el, index, el.name);
-      }
-    } else {
-      
-        if (!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')) {
-          createKeyTop(el, index, el.ruName.toUpperCase());
-        } else {
-          createKeyTop(el, index, el.ruName);
-        
-    }}
-  });
-};
-
-const cleanKeyboard = () => {
-  for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-    document.querySelectorAll('.key')[i].innerHTML = '';
-  }
-} 
 
 const symbolsHandler = () => {
   cleanKeyboard();
@@ -429,9 +428,9 @@ window.addEventListener('keyup', (e) => {
         screen.value += '\t';
         break;
       case el.dataset.key === 'enter':
-        screen.value = screen.value.slice(0, posCursor) + '\n' + screen.value.slice(posCursor);
-        screen.selectionStart = posCursor+1;
-        screen.selectionEnd = posCursor+1;
+        screen.value = `${screen.value.slice(0, posCursor)}\n${screen.value.slice(posCursor)}`;
+        screen.selectionStart = posCursor + 1;
+        screen.selectionEnd = posCursor + 1;
         break;
       case el.dataset.key === 'shift':
         el.classList.remove('on');
@@ -514,9 +513,9 @@ keyboard.addEventListener('mouseup', (e) => {
       screen.value += '\t';
       break;
     case e.target.parentNode.dataset.key === 'enter':
-      screen.value = screen.value.slice(0, posCursor) + '\n' + screen.value.slice(posCursor);
-      screen.selectionStart = posCursor+1;
-      screen.selectionEnd = posCursor+1;
+      screen.value = `${screen.value.slice(0, posCursor)}\n${screen.value.slice(posCursor)}`;
+      screen.selectionStart = posCursor + 1;
+      screen.selectionEnd = posCursor + 1;
       break;
     case e.target.parentNode.dataset.key === 'backspace':
       screen.value = screen.value.slice(0, posCursor - 1) + screen.value.slice(posCursor);
@@ -531,12 +530,12 @@ keyboard.addEventListener('mouseup', (e) => {
     case e.target.parentNode.dataset.key === 'escape':
       break;
     case e.target.parentNode.dataset.key === 'old':
-      if(document.querySelector('.screen').classList.contains('old-vibes')){
+      if (document.querySelector('.screen').classList.contains('old-vibes')) {
         screen.classList.remove('old-vibes');
         screen.value = screen.value.slice(0, -52);
       } else {
         screen.classList.add('old-vibes');
-        screen.value += ' тут должно было быть еще мерцание, но я не успела(('
+        screen.value += ' тут должно было быть еще мерцание, но я не успела((';
       }
       break;
     case e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func'):
