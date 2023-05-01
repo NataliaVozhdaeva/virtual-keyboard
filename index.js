@@ -192,7 +192,6 @@ window.addEventListener('keydown', (e) => {
       el.classList.add('on');
       if (document.querySelector('div[data-key=control]').classList.contains('on')) {
         document.querySelectorAll('.key').forEach((element) => element.innerHTML = '');
-        //vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
         langHandler();
       }
       el.classList.add('pressed');
@@ -203,7 +202,6 @@ window.addEventListener('keydown', (e) => {
         document.querySelectorAll('.key').forEach((element) => {
           element.innerHTML = '';
         });        
-        //vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
         langHandler();
       }
       el.classList.add('pressed');
@@ -248,6 +246,12 @@ window.addEventListener('keyup', (e) => {
       case el.dataset.key === 'control':
         el.classList.remove('on');
         break;
+      case el.dataset.key === 'backspace':
+        let posCursor = screen.selectionStart;
+        screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
+       screen.selectionStart = posCursor-1;
+       screen.selectionEnd = posCursor-1;
+        break;
       default:
         const letter = keyboard.querySelector(`div[data-key="${e.code.toLowerCase()}"]`);
         showText(letter.textContent);
@@ -260,9 +264,24 @@ keyboard.addEventListener('mousedown', (e) => {
   if (e.target.parentNode.dataset.key === 'shift') {
     e.target.parentNode.classList.add('on');
   }
- /*  if (e.target.parentNode.dataset.key === 'alt') {
+  if (e.target.parentNode.dataset.key === 'alt') {
     e.target.parentNode.classList.add('on');
-  } */
+    if (document.querySelector('div[data-key=control]').classList.contains('on')) {
+      document.querySelectorAll('.key').forEach((element) => {
+        element.innerHTML = '';
+      });        
+      langHandler();
+    }
+  }
+  if (e.target.parentNode.dataset.key === 'control') {
+    e.target.parentNode.classList.add('on');
+    if (document.querySelector('div[data-key=alt]').classList.contains('on')) {
+      document.querySelectorAll('.key').forEach((element) => {
+        element.innerHTML = '';
+      });        
+      langHandler();
+    }
+  }
 });
 
 keyboard.addEventListener('mouseup', (e) => {
@@ -274,7 +293,9 @@ keyboard.addEventListener('mouseup', (e) => {
   if (e.target.parentNode.dataset.key === 'alt') {
     e.target.parentNode.classList.remove('on');
   }
-
+  if (e.target.parentNode.dataset.key === 'control') {
+    e.target.parentNode.classList.remove('on');
+  }
   if (e.target.parentNode.dataset.key === 'capslock') {
     e.target.parentNode.classList.contains('on')
       ? e.target.parentNode.classList.remove('on')
@@ -286,11 +307,20 @@ keyboard.addEventListener('mouseup', (e) => {
   }
 
   if (e.target.parentNode.dataset.key === 'enter'){
-    screen.value += '\n';}
+    screen.value += '\n';
+  }
 
-
+  if (e.target.parentNode.dataset.key === 'backspace'){
+    let posCursor = screen.selectionStart;
+        screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
+       screen.selectionStart = posCursor-1;
+       screen.selectionEnd = posCursor-1;
+  }
+    
   if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {
     showText(e.target.textContent);
   }
 
 });
+
+
