@@ -86,16 +86,16 @@ const createKeyTop = (el, index, mod) => {
     keyTop.textContent = mod;
   }
 
-/*   if (!document.querySelector('.key').classList.contains('key_func')
-    && document.querySelector('div[data-key=capslock]').classList.contains('on')
-    || document.querySelector('div[data-key=shift]').classList.contains('on')
-    ) {
-    keyTop.textContent = mod.toUpperCase();
-  } */
-
   const keys = document.getElementsByClassName('key');
   keys[index].appendChild(keyTop);
 };
+
+/* if (document.querySelector('div[data-key=capslock]') !== null 
+&& document.querySelector('div[data-key=capslock]').classList.contains('on')
+&& !document.querySelector('.key').classList.contains('key_func')
+) {
+keyTop.textContent = mod.toUpperCase();
+} */
 
 const createKey = (element) => {
   const key = document.createElement('div');
@@ -174,10 +174,6 @@ const langHandler = () => {
 };
 
 const capsHandler = () => {
-  for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-    document.querySelectorAll('.key')[i].innerHTML = '';
-  }
-  
   vocabulary.forEach((el, index) => {
     if (lang === 'en'){
       if(!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')){
@@ -196,6 +192,10 @@ const capsHandler = () => {
 }
 
 const symbolsHandler = () => {
+  for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+    document.querySelectorAll('.key')[i].innerHTML = '';
+  }
+  
   if (lang === 'en' && document.querySelector('div[data-key=shift]').classList.contains('on')) {
     vocabulary.forEach((el, index) => {
       if(el.enSymbolName){
@@ -216,14 +216,8 @@ const symbolsHandler = () => {
         createKeyTop(el, index, el.ruName)
       }
     });
-  }  else {
-    vocabulary.forEach((el, index) => {
-    if (lang === 'en'){
-      createKeyTop(el, index, el.name)
-    } else {
-      createKeyTop(el, index, el.ruName)
-    }
-  } )
+  } else {
+    capsHandler()
 }}
 
 window.addEventListener('keydown', (e) => {
@@ -295,9 +289,17 @@ window.addEventListener('keyup', (e) => {
       case el.dataset.key === 'capslock':
         if (el.classList.contains('on')) {
           el.classList.remove('on');
+          for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+            document.querySelectorAll('.key')[i].innerHTML = '';
+          }
+          
           capsHandler()
         } else {
           el.classList.add('on');
+          for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+            document.querySelectorAll('.key')[i].innerHTML = '';
+          }
+          
           capsHandler()
         }
         break;
