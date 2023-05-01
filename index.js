@@ -205,18 +205,10 @@ const createKeyTop = (el, index, mod) => {
   } else {
     keyTop.textContent = mod;
   }
-/* 
-  if (document.querySelector('div[data-key=capslock]') !== null
-  && document.querySelector('div[data-key=capslock]').classList.contains('on')
-  && !document.querySelector('.key').classList.contains('key_func')
-  ) {
-  keyTop.textContent = mod.toUpperCase();
-  }  */
 
   const keys = document.getElementsByClassName('key');
   keys[index].appendChild(keyTop);
 };
-
 
 const createKey = (element) => {
   const key = document.createElement('div');
@@ -284,13 +276,29 @@ const showText = (letter) => {
 
 let lang = 'en';
 
+function getLocalStorage() {
+  if (localStorage.getItem('lang')) {
+    lang = localStorage.getItem('lang');
+  }
+  cleanKeyboard();
+  capsHandler();
+}
+
+window.addEventListener('load', getLocalStorage);
+
+function setLocalStorage() {
+  localStorage.setItem('lang', lang);
+}
+
 const langHandler = () => {
   if (lang === 'en') {
     vocabulary.forEach((el, index) => createKeyTop(el, index, el.ruName));
     lang = 'ru';
+    setLocalStorage()
   } else {
     vocabulary.forEach((el, index) => createKeyTop(el, index, el.name));
     lang = 'en';
+    setLocalStorage()
   }
 };
 
@@ -313,11 +321,14 @@ const capsHandler = () => {
   });
 };
 
-const symbolsHandler = () => {
+const cleanKeyboard = () => {
   for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
     document.querySelectorAll('.key')[i].innerHTML = '';
   }
+} 
 
+const symbolsHandler = () => {
+  cleanKeyboard();
   if (lang === 'en' && document.querySelector('div[data-key=shift]').classList.contains('on')) {
     vocabulary.forEach((el, index) => {
       if (el.enSymbolName) {
@@ -361,17 +372,13 @@ window.addEventListener('keydown', (e) => {
     case el.dataset.key === 'shift':
       el.classList.add('on');
       el.classList.add('pressed');
-      for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-        document.querySelectorAll('.key')[i].innerHTML = '';
-      }
+      cleanKeyboard();
       symbolsHandler();
       break;
     case el.dataset.key === 'alt':
       el.classList.add('on');
       if (document.querySelector('div[data-key=control]').classList.contains('on')) {
-        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-          document.querySelectorAll('.key')[i].innerHTML = '';
-        }
+        cleanKeyboard();
         langHandler();
       }
       el.classList.add('pressed');
@@ -379,9 +386,7 @@ window.addEventListener('keydown', (e) => {
     case el.dataset.key === 'control':
       el.classList.add('on');
       if (document.querySelector('div[data-key=alt]').classList.contains('on')) {
-        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-          document.querySelectorAll('.key')[i].innerHTML = '';
-        }
+        cleanKeyboard();
         langHandler();
       }
       el.classList.add('pressed');
@@ -412,15 +417,11 @@ window.addEventListener('keyup', (e) => {
       case el.dataset.key === 'capslock':
         if (el.classList.contains('on')) {
           el.classList.remove('on');
-          for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-            document.querySelectorAll('.key')[i].innerHTML = '';
-          }
+          cleanKeyboard();
           capsHandler();
         } else {
           el.classList.add('on');
-          for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-            document.querySelectorAll('.key')[i].innerHTML = '';
-          }
+          cleanKeyboard();
           capsHandler();
         }
         break;
@@ -434,9 +435,7 @@ window.addEventListener('keyup', (e) => {
         break;
       case el.dataset.key === 'shift':
         el.classList.remove('on');
-        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-          document.querySelectorAll('.key')[i].innerHTML = '';
-        }
+        cleanKeyboard();
         symbolsHandler();
         break;
       case el.dataset.key === 'alt':
@@ -467,24 +466,18 @@ keyboard.addEventListener('mousedown', (e) => {
   e.target.parentNode.classList.add('pressed');
   if (e.target.parentNode.dataset.key === 'shift') {
     e.target.parentNode.classList.add('on');
-    for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-      document.querySelectorAll('.key')[i].innerHTML = '';
-    }
+    cleanKeyboard();
     symbolsHandler();
   } else if (e.target.parentNode.dataset.key === 'alt') {
     e.target.parentNode.classList.add('on');
     if (document.querySelector('div[data-key=control]').classList.contains('on')) {
-      for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-        document.querySelectorAll('.key')[i].innerHTML = '';
-      }
+      cleanKeyboard();
       langHandler();
     }
   } else if (e.target.parentNode.dataset.key === 'control') {
     e.target.parentNode.classList.add('on');
     if (document.querySelector('div[data-key=alt]').classList.contains('on')) {
-      for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-        document.querySelectorAll('.key')[i].innerHTML = '';
-      }
+      cleanKeyboard();
       langHandler();
     }
   }
@@ -497,9 +490,7 @@ keyboard.addEventListener('mouseup', (e) => {
   switch (true) {
     case e.target.parentNode.dataset.key === 'shift':
       e.target.parentNode.classList.remove('on');
-      for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-        document.querySelectorAll('.key')[i].innerHTML = '';
-      }
+      cleanKeyboard();
       symbolsHandler();
       break;
     case e.target.parentNode.dataset.key === 'alt':
@@ -511,15 +502,11 @@ keyboard.addEventListener('mouseup', (e) => {
     case e.target.parentNode.dataset.key === 'capslock':
       if (e.target.parentNode.classList.contains('on')) {
         e.target.parentNode.classList.remove('on');
-        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-          document.querySelectorAll('.key')[i].innerHTML = '';
-        }
+        cleanKeyboard();
         capsHandler();
       } else {
         e.target.parentNode.classList.add('on');
-        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
-          document.querySelectorAll('.key')[i].innerHTML = '';
-        }
+        cleanKeyboard();
         capsHandler();
       }
       break;
@@ -549,6 +536,4 @@ keyboard.addEventListener('mouseup', (e) => {
     default:
   }
 });
-
-// enter переносит текст
-// локал срорэдж
+// сообщение!!!
