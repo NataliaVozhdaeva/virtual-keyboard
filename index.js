@@ -226,6 +226,8 @@ window.addEventListener('keyup', (e) => {
     el.classList.remove('pressed');
   }
 
+  let posCursor = screen.selectionStart;
+
   if (el !== null) {
     switch (true) {
       case el.dataset.key === 'capslock':
@@ -247,10 +249,14 @@ window.addEventListener('keyup', (e) => {
         el.classList.remove('on');
         break;
       case el.dataset.key === 'backspace':
-        let posCursor = screen.selectionStart;
         screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
-       screen.selectionStart = posCursor-1;
-       screen.selectionEnd = posCursor-1;
+        screen.selectionStart = posCursor-1;
+        screen.selectionEnd = posCursor-1;
+        break;
+      case el.dataset.key === 'delete':
+        screen.value=screen.value.slice(0, posCursor)+screen.value.slice(posCursor+1);
+        screen.selectionStart = posCursor;
+        screen.selectionEnd = posCursor;
         break;
       default:
         const letter = keyboard.querySelector(`div[data-key="${e.code.toLowerCase()}"]`);
@@ -286,6 +292,7 @@ keyboard.addEventListener('mousedown', (e) => {
 
 keyboard.addEventListener('mouseup', (e) => {
   e.target.parentNode.classList.remove('pressed');
+  let posCursor = screen.selectionStart;
 
   if (e.target.parentNode.dataset.key === 'shift') {
     e.target.parentNode.classList.remove('on');
@@ -311,11 +318,16 @@ keyboard.addEventListener('mouseup', (e) => {
   }
 
   if (e.target.parentNode.dataset.key === 'backspace'){
-    let posCursor = screen.selectionStart;
-        screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
-       screen.selectionStart = posCursor-1;
-       screen.selectionEnd = posCursor-1;
+      screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
+      screen.selectionStart = posCursor-1;
+      screen.selectionEnd = posCursor-1;
   }
+
+  if (e.target.parentNode.dataset.key === 'delete'){
+    screen.value=screen.value.slice(0, posCursor)+screen.value.slice(posCursor+1);
+    screen.selectionStart = posCursor;
+    screen.selectionEnd = posCursor;
+  } 
     
   if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {
     showText(e.target.textContent);
