@@ -161,7 +161,7 @@ const vocabulary = [
   {
     name: '⬆', code: 'ArrowUp', ruName: '⬆', isFunc: false,
   },
-  { name: '🪄', code: '', ruName: '🪄', isFunc: true },
+  { name: '🪄', code: 'old', ruName: '🪄', isFunc: true },
   {
     name: 'Ctrl', code: 'Control', ruName: 'Ктрл', isFunc: true,
   },
@@ -529,7 +529,16 @@ keyboard.addEventListener('mouseup', (e) => {
       screen.selectionEnd = posCursor;
       break;
     case e.target.parentNode.dataset.key === 'escape':
-        break;
+      break;
+    case e.target.parentNode.dataset.key === 'old':
+      if(document.querySelector('.screen').classList.contains('old-vibes')){
+        screen.classList.remove('old-vibes');
+        screen.value = screen.value.slice(0, -52);
+      } else {
+        screen.classList.add('old-vibes');
+        screen.value += ' тут должно было быть еще мерцание, но я не успела(('
+      }
+      break;
     case e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func'):
       showText(e.target.textContent);
       break;

@@ -114,3 +114,10 @@
   line-height: 150%;
   text-align: center;
 }
+
+.old-vibes{
+  color: rgba(125,225,125,0.75);
+  font-family: 'VT323', monospace;
+  font-size: 25px;
+  text-shadow: 0 0 5px rgba(125,225,125,0.5), 0 0 15px rgba(125,250,125,1);
+}
