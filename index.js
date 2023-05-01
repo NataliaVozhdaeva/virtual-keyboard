@@ -1,6 +1,6 @@
 const vocabulary = [
   {name: 'Esc', code: 'Escape', ruName: 'Уйти', isFunc: true},
-  { name: '`', code: 'Backquote', enSymbolName:'~', ruSymbolName:'ё', isFunc: false },
+  { name: '`', code: 'Backquote',ruName: 'ё', enSymbolName:'~', isFunc: false },
   { name: '1', code: 'Digit1', enSymbolName:'!', ruSymbolName:'!', isFunc: false },
   { name: '2', code: 'Digit2', enSymbolName:'@', ruSymbolName:'"', isFunc: false },
   { name: '3', code: 'Digit3', enSymbolName:'#', ruSymbolName:'№', isFunc: false },
@@ -222,6 +222,10 @@ window.addEventListener('keydown', (e) => {
     case el.dataset.key === 'shift':
       el.classList.add('on');
       el.classList.add('pressed');
+      for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+        document.querySelectorAll('.key')[i].innerHTML = '';
+      }
+      symbolsHandler();
       break;
     case el.dataset.key === 'alt':
       el.classList.add('on');
@@ -281,6 +285,10 @@ window.addEventListener('keyup', (e) => {
         break;
       case el.dataset.key === 'shift':
         el.classList.remove('on');
+        for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+          document.querySelectorAll('.key')[i].innerHTML = '';
+        }
+        symbolsHandler();
         break;
       case el.dataset.key === 'alt':
         el.classList.remove('on');
@@ -384,3 +392,4 @@ keyboard.addEventListener('mouseup', (e) => {
 // enter переносит текст
 // подсветка нажатого капса
 // локал срорэдж
+// esc screen
