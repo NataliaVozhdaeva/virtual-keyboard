@@ -536,4 +536,13 @@ keyboard.addEventListener('mouseup', (e) => {
     default:
   }
 });
-// сообщение!!!
+
+const message = document.createElement('div');
+message.className = 'message';
+const paragraph1 = document.createElement('p');
+paragraph1.textContent = 'Клавиатура создана в операционной системе Linux.';
+message.appendChild(paragraph1);
+const paragraph2 = document.createElement('p');
+paragraph2.textContent = 'Для переключения языка комбинация: ctrl + alt (ктрл + др))';
+message.appendChild(paragraph2);
+body.appendChild(message);

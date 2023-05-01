@@ -105,3 +105,12 @@
 .key.pressed {
   transform: scale(0.95);
 }
+
+.message{
+  width: 600px;
+  margin: 50px auto;
+
+  font-size: 18px;
+  line-height: 150%;
+  text-align: center;
+}
