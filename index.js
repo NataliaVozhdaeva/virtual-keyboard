@@ -1,6 +1,6 @@
 const vocabulary = [
   {name: 'Esc', code: 'Escape', ruName: 'Уйти', isFunc: true},
-  { name: '`', code: 'Backquote',ruName: 'ё', enSymbolName:'~', isFunc: false },
+   { name: '`', code: 'Backquote',ruName: 'ё', enSymbolName:'~', isFunc: false },
   { name: '1', code: 'Digit1', enSymbolName:'!', ruSymbolName:'!', isFunc: false },
   { name: '2', code: 'Digit2', enSymbolName:'@', ruSymbolName:'"', isFunc: false },
   { name: '3', code: 'Digit3', enSymbolName:'#', ruSymbolName:'№', isFunc: false },
@@ -15,7 +15,7 @@ const vocabulary = [
   { name: '=', code: 'Equal', enSymbolName:'+', ruSymbolName:'+', isFunc: false },
   { name: 'Del', code: 'Delete', ruName: 'Дел', isFunc: true },
   { name: 'Tab', code: 'Tab', ruName: 'Таб', isFunc: true },
-  { name: 'q', code: 'KeyQ', ruName: 'й', isFunc: false },
+  { name: 'q', code: 'KeyQ', ruName: 'й', isFunc: false }, 
   { name: 'w', code: 'KeyW', ruName: 'ц', isFunc: false },
   { name: 'e', code: 'KeyE', ruName: 'у', isFunc: false },
   { name: 'r', code: 'KeyR', ruName: 'к', isFunc: false },
@@ -59,7 +59,7 @@ const vocabulary = [
   { name: ' ', code: 'Space', ruName: ' ', isFunc: false },
   { name: '⬅', code: 'ArrowLeft', ruName: '⬅', isFunc: false },
   { name: '⬇', code: 'ArrowDown', ruName: '⬇', isFunc: false },
-  { name: '➡', code: 'ArrowRight', ruName: '➡', isFunc: false },
+  { name: '➡', code: 'ArrowRight', ruName: '➡', isFunc: false }, 
 ];
 
 const screen = document.createElement('textarea');
@@ -86,12 +86,12 @@ const createKeyTop = (el, index, mod) => {
     keyTop.textContent = mod;
   }
 
-  if (document.querySelector('div[data-key=capslock]').classList.contains('on')
+/*   if (!document.querySelector('.key').classList.contains('key_func')
+    && document.querySelector('div[data-key=capslock]').classList.contains('on')
     || document.querySelector('div[data-key=shift]').classList.contains('on')
-    && !document.querySelector('.key').classList.contains('key_func')
-  ) {
+    ) {
     keyTop.textContent = mod.toUpperCase();
-  }
+  } */
 
   const keys = document.getElementsByClassName('key');
   keys[index].appendChild(keyTop);
@@ -172,6 +172,28 @@ const langHandler = () => {
     lang = 'en';
   }
 };
+
+const capsHandler = () => {
+  for (let i = 0; i < document.querySelectorAll('.key').length; i += 1) {
+    document.querySelectorAll('.key')[i].innerHTML = '';
+  }
+  
+  vocabulary.forEach((el, index) => {
+    if (lang === 'en'){
+      if(!el.isFunc && document.querySelector('div[data-key=capslock]').classList.contains('on')){
+        createKeyTop(el, index, el.name.toUpperCase())
+      } else {
+        createKeyTop(el, index, el.name)
+      }
+    } else{
+      if(!el.isFunc){
+        createKeyTop(el, index, el.ruName.toUpperCase())
+      } else {
+        createKeyTop(el, index, el.ruName)
+      }
+    }
+  } )
+}
 
 const symbolsHandler = () => {
   if (lang === 'en' && document.querySelector('div[data-key=shift]').classList.contains('on')) {
@@ -273,8 +295,10 @@ window.addEventListener('keyup', (e) => {
       case el.dataset.key === 'capslock':
         if (el.classList.contains('on')) {
           el.classList.remove('on');
+          capsHandler()
         } else {
           el.classList.add('on');
+          capsHandler()
         }
         break;
       case el.dataset.key === 'tab':
