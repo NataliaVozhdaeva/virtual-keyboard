@@ -294,43 +294,39 @@ keyboard.addEventListener('mouseup', (e) => {
   e.target.parentNode.classList.remove('pressed');
   let posCursor = screen.selectionStart;
 
-  if (e.target.parentNode.dataset.key === 'shift') {
+  switch(true){
+    case e.target.parentNode.dataset.key === 'shift':
+      e.target.parentNode.classList.remove('on');
+      break
+    case e.target.parentNode.dataset.key === 'alt': 
     e.target.parentNode.classList.remove('on');
-  }
-  if (e.target.parentNode.dataset.key === 'alt') {
-    e.target.parentNode.classList.remove('on');
-  }
-  if (e.target.parentNode.dataset.key === 'control') {
-    e.target.parentNode.classList.remove('on');
-  }
-  if (e.target.parentNode.dataset.key === 'capslock') {
-    e.target.parentNode.classList.contains('on')
-      ? e.target.parentNode.classList.remove('on')
-      : e.target.parentNode.classList.add('on');
-  }
-
-  if (e.target.parentNode.dataset.key === 'tab') {
-    screen.value += '    ';
-  }
-
-  if (e.target.parentNode.dataset.key === 'enter'){
-    screen.value += '\n';
-  }
-
-  if (e.target.parentNode.dataset.key === 'backspace'){
+    break
+    case e.target.parentNode.dataset.key === 'control':
+      e.target.parentNode.classList.remove('on');
+      break
+    case e.target.parentNode.dataset.key === 'capslock':
+      e.target.parentNode.classList.contains('on')
+        ? e.target.parentNode.classList.remove('on')
+        : e.target.parentNode.classList.add('on');
+        break
+    case e.target.parentNode.dataset.key === 'tab':
+      screen.value += '    ';
+      break
+    case e.target.parentNode.dataset.key === 'enter':
+      screen.value += '\n';
+      break
+    case e.target.parentNode.dataset.key === 'backspace':
       screen.value=screen.value.slice(0, posCursor-1)+screen.value.slice(posCursor);
       screen.selectionStart = posCursor-1;
       screen.selectionEnd = posCursor-1;
-  }
-
-  if (e.target.parentNode.dataset.key === 'delete'){
-    screen.value=screen.value.slice(0, posCursor)+screen.value.slice(posCursor+1);
-    screen.selectionStart = posCursor;
-    screen.selectionEnd = posCursor;
-  } 
-    
-  if (e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func')) {
-    showText(e.target.textContent);
+      break
+    case e.target.parentNode.dataset.key === 'delete':
+      screen.value=screen.value.slice(0, posCursor)+screen.value.slice(posCursor+1);
+      screen.selectionStart = posCursor;
+      screen.selectionEnd = posCursor;
+      break
+    case e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func'):
+      showText(e.target.textContent);
   }
 
 });
