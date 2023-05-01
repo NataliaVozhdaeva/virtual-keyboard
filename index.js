@@ -428,7 +428,9 @@ window.addEventListener('keyup', (e) => {
         screen.value += '\t';
         break;
       case el.dataset.key === 'enter':
-        screen.value += '\n';
+        screen.value = screen.value.slice(0, posCursor) + '\n' + screen.value.slice(posCursor);
+        screen.selectionStart = posCursor+1;
+        screen.selectionEnd = posCursor+1;
         break;
       case el.dataset.key === 'shift':
         el.classList.remove('on');
@@ -452,6 +454,8 @@ window.addEventListener('keyup', (e) => {
         screen.value = screen.value.slice(0, posCursor) + screen.value.slice(posCursor + 1);
         screen.selectionStart = posCursor;
         screen.selectionEnd = posCursor;
+        break;
+      case el.dataset.key === 'escape':
         break;
       default:
         showText(keyboard.querySelector(`div[data-key="${e.code.toLowerCase()}"]`).textContent);
@@ -523,7 +527,9 @@ keyboard.addEventListener('mouseup', (e) => {
       screen.value += '\t';
       break;
     case e.target.parentNode.dataset.key === 'enter':
-      screen.value += '\n';
+      screen.value = screen.value.slice(0, posCursor) + '\n' + screen.value.slice(posCursor);
+      screen.selectionStart = posCursor+1;
+      screen.selectionEnd = posCursor+1;
       break;
     case e.target.parentNode.dataset.key === 'backspace':
       screen.value = screen.value.slice(0, posCursor - 1) + screen.value.slice(posCursor);
@@ -535,6 +541,8 @@ keyboard.addEventListener('mouseup', (e) => {
       screen.selectionStart = posCursor;
       screen.selectionEnd = posCursor;
       break;
+    case e.target.parentNode.dataset.key === 'escape':
+        break;
     case e.target.parentNode.classList.contains('key') && !e.target.parentNode.classList.contains('key_func'):
       showText(e.target.textContent);
       break;
@@ -543,6 +551,4 @@ keyboard.addEventListener('mouseup', (e) => {
 });
 
 // enter переносит текст
-// подсветка нажатого капса
 // локал срорэдж
-// esc screen
