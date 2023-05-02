@@ -290,13 +290,19 @@ const capsHandler = () => {
 };
 
 const showText = (letter) => {
+  const posCursor = screen.selectionStart;
+
   if (
     document.querySelector('div[data-key=capslock]').classList.contains('on')
     || document.querySelector('div[data-key=shift]').classList.contains('on')
   ) {
-    screen.value += letter.toUpperCase();
+    screen.value = `${screen.value.slice(0, posCursor)}${letter.toUpperCase()}${screen.value.slice(posCursor)}`;
+    screen.selectionStart = posCursor + 1;
+    screen.selectionEnd = posCursor + 1;
   } else {
-    screen.value += letter;
+    screen.value = `${screen.value.slice(0, posCursor)}${letter}${screen.value.slice(posCursor)}`;
+    screen.selectionStart = posCursor + 1;
+    screen.selectionEnd = posCursor + 1;
   }
 };
 
