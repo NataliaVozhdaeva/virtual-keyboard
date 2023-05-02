@@ -431,7 +431,9 @@ window.addEventListener('keyup', (e) => {
         }
         break;
       case el.dataset.key === 'tab':
-        screen.value += '\t';
+        screen.value = `${screen.value.slice(0, posCursor)}${'\t'}${screen.value.slice(posCursor)}`;
+        screen.selectionStart = posCursor + 1;
+        screen.selectionEnd = posCursor + 1;
         break;
       case el.dataset.key === 'enter':
         screen.value = `${screen.value.slice(0, posCursor)}\n${screen.value.slice(posCursor)}`;
@@ -516,7 +518,9 @@ keyboard.addEventListener('mouseup', (e) => {
       }
       break;
     case e.target.parentNode.dataset.key === 'tab':
-      screen.value += '\t';
+      screen.value = `${screen.value.slice(0, posCursor)}${'\t'}${screen.value.slice(posCursor)}`;
+      screen.selectionStart = posCursor + 1;
+      screen.selectionEnd = posCursor + 1;
       break;
     case e.target.parentNode.dataset.key === 'enter':
       screen.value = `${screen.value.slice(0, posCursor)}\n${screen.value.slice(posCursor)}`;
