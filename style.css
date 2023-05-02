@@ -1,0 +1,123 @@
+.screen {
+  box-sizing: border-box;
+  display: block;
+  width: 980px;
+  height: 300px;
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 35px 50px;
+
+  font-size: 20px;
+
+  background-color: #1c1c1c;
+  color: #00ff00;
+}
+
+.keyboard {
+  width: 890px;
+  margin: auto;
+
+  padding: 30px 8px 13px;
+  background: linear-gradient(to bottom, #e5e2e1, #f5f3f1, #e5e2e1), #f5f3f1;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.mainContainer {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: fit-content;
+
+  padding: 2px;
+  background: #4d4d4d;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.key {
+  width: 40px;
+  height: 45px;
+  margin: 2px;
+
+  border-width: 3px 7px 10px;
+  border-style: solid;
+  border-radius: 4px;
+  background: #d3cfcc;
+  border-color: #ece8e4 #dedad6 #c9c4c4;
+}
+
+.key-top {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+  line-height: 1;
+  background: linear-gradient(to right, #e5e2e1, #f5f3f1, #e5e2e1), #f5f3f1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.key_func {
+  position: relative;
+
+  flex-grow: 1;
+  width: auto;
+
+  background: #a8aeb8;
+  border-color: #c4c7cc #adb9cc #96a6bd;
+}
+
+.key_func[data-key=capslock]::after{
+  content:'';
+  position: absolute;
+  top:10px;
+  right: 10px;
+
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #96a6bd;
+  background: #96a6bd;
+}
+
+.key_func[data-key=capslock].on::after{
+  box-shadow: 0 0 10px  #00ff00;
+  background-color: #00ff00 ;
+}
+
+.key_func .key-top {
+  box-sizing: border-box;
+  justify-content: flex-start;
+
+  font-size: 15px;
+  padding-left: 4px;
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2), #cdd3de;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.key.pressed {
+  transform: scale(0.95);
+}
+
+.message{
+  width: 600px;
+  margin: 50px auto;
+
+  font-size: 18px;
+  line-height: 150%;
+  text-align: center;
+}
+
+.old-vibes{
+  color: rgba(125,225,125,0.75);
+  font-family: 'VT323', monospace;
+  font-size: 25px;
+  text-shadow: 0 0 5px rgba(125,225,125,0.5), 0 0 15px rgba(125,250,125,1);
+}
