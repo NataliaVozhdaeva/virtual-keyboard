@@ -296,11 +296,11 @@ const showText = (letter) => {
     document.querySelector('div[data-key=capslock]').classList.contains('on')
     || document.querySelector('div[data-key=shift]').classList.contains('on')
   ) {
-    screen.value = `${screen.value.slice(0, posCursor)}`+letter.toUpperCase()+`${screen.value.slice(posCursor)}`
+    screen.value = `${screen.value.slice(0, posCursor)}${letter.toUpperCase()}${screen.value.slice(posCursor)}`;
     screen.selectionStart = posCursor + 1;
     screen.selectionEnd = posCursor + 1;
   } else {
-    screen.value = `${screen.value.slice(0, posCursor)}`+letter+`${screen.value.slice(posCursor)}`
+    screen.value = `${screen.value.slice(0, posCursor)}${letter}${screen.value.slice(posCursor)}`;
     screen.selectionStart = posCursor + 1;
     screen.selectionEnd = posCursor + 1;
   }
